@@ -3,20 +3,22 @@ require 'bike'
 
 describe DockingStation do
   describe '#release_bike' do
+
+    let(:bike) { double :bike }
+
     it 'raises an error when there is no avaible bikes' do
       expect {subject.release_bike}.to raise_error 'No bikes available'
     end
 
 
     it 'release only working bikes, fail if none available' do
-      bike = Bike.new
-      bike.report_broken
+      allow(bike).to receive(:working?).and_return(false)
       subject.dock bike
       expect{subject.release_bike}.to raise_error 'No bikes available'
     end
 
     it 'release only working bikes' do
-      bike = Bike.new
+      allow(bike).to receive(:working?).and_return(true)
       subject.dock bike
       expect(subject.release_bike).to eq bike
     end
