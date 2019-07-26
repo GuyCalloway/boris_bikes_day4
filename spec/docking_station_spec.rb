@@ -8,7 +8,7 @@ describe DockingStation do
     end
 
     it 'release only working bikes' do
-      bike = Bike.new
+      bike = instance_double("Bike")
       bike.report_broken
       subject.dock bike
 
