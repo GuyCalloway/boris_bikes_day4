@@ -18,12 +18,11 @@ class DockingStation
   end
 
   def release_bike
-    @bikes.select! {|bike| bike.working?}
-    fail 'No bikes available' if empty?
-    @bikes.pop
+    @bikes.each {|bike| if bike.working?
+                            return @bikes.delete(bike)
+                        end}
+    raise "No bikes available"
   end
-
-
 
   private
 
